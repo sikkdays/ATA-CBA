@@ -1,6 +1,6 @@
 {
-  "name": "Contract Viewer",
-  "short_name": "Contract",
+  "name": "Unifor CBA with ATA",
+  "short_name": "CBA",
   "description": "Searchable contract document viewer",
   "start_url": "/",
   "display": "standalone",
