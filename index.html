@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unifor CBA with ATA</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#c40909">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #c40909, #c40909);
+            color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header h1 {
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .search-container {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        #searchInput {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .search-btn {
+            padding: 0.75rem 1rem;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .search-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .search-stats {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        .document {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            line-height: 1.6;
+            margin-top: 1rem;
+        }
+        
+        .document h2 {
+            color: #2196F3;
+            margin: 1.5rem 0 1rem 0;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 0.5rem;
+        }
+        
+        .document h3 {
+            color: #333;
+            margin: 1rem 0 0.5rem 0;
+        }
+        
+        .document p {
+            margin: 1rem 0;
+            text-align: justify;
+        }
+        
+        .highlight {
+            background-color: #ffeb3b;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .jump-to-result {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #c40909;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        
+        .jump-to-result:hover {
+            background: #1976D2;
+        }
+        
+        .no-results {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            margin: 2rem 0;
+            display: none;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 0.5rem;
+            }
+            
+            .document {
+                padding: 1rem;
+            }
+            
+            .header {
+                padding: 1rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📋 Unifor CBA with ATA</h1>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search contract terms..." autocomplete="off">
+            <button class="search-btn" onclick="searchDocument()">Search</button>
+            <button class="search-btn" onclick="clearSearch()">Clear</button>
+        </div>
+        <div class="search-stats" id="searchStats"></div>
+    </div>
+
+    <div class="container">
+        <div class="document" id="documentContent">
+            <h2>COLLECTIVE AGREEMENT BETWEEN THE ALBERTA TEACHERS&#39; ASSOCIATION AND LOCAL 777 OF UNIFOR</h2>
+		<h2>Effective 2024 09 01</h2>
+	 
+<h2>TABLE OF CONTENTS</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Article Number</th>
+      <th>Article</th>
+      <th>Page(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Purpose</td><td>1</td></tr>
+    <tr><td>2</td><td>Application</td><td>1</td></tr>
+    <tr><td>3</td><td>Definitions</td><td>1</td></tr>
+    <tr><td>4</td><td>Union Dues</td><td>4</td></tr>
+    <tr><td>5</td><td>Information for the Union</td><td>4</td></tr>
+    <tr><td>6</td><td>Management Rights</td><td>4</td></tr>
+    <tr><td>7</td><td>Union Activities</td><td>5</td></tr>
+    <tr><td>8</td><td>Term of Agreement</td><td>7</td></tr>
+    <tr><td>9</td><td>No Strike or Lockout</td><td>8</td></tr>
+    <tr><td>10</td><td>Job Classification</td><td>8</td></tr>
+    <tr><td>11</td><td>Promotion/Transfer Procedures</td><td>9</td></tr>
+    <tr><td>12</td><td>Salary</td><td>11</td></tr>
+    <tr><td>13</td><td>Salary Payment</td><td>12</td></tr>
+    <tr><td>14</td><td>Hours of Work</td><td>13</td></tr>
+    <tr><td>15</td><td>Overtime</td><td>14</td></tr>
+    <tr><td>16</td><td>Meal Allowance and Expenses</td><td>15</td></tr>
+    <tr><td>17</td><td>General Holidays</td><td>15</td></tr>
+    <tr><td>18</td><td>Vacation</td><td>16</td></tr>
+    <tr><td>19</td><td>Sick Leave</td><td>18</td></tr>
+    <tr><td>20</td><td>Maternity/Adoption/Parental Leave</td><td>19</td></tr>
+    <tr><td>21</td><td>Leave With Pay</td><td>22</td></tr>
+    <tr><td>22</td><td>Leave Without Pay</td><td>24</td></tr>
+    <tr><td>23</td><td>Education Assistance Leave Plan</td><td>24</td></tr>
+    <tr><td>24</td><td>Benefits</td><td>25</td></tr>
+    <tr><td>25</td><td>Pension Plan</td><td>27</td></tr>
+    <tr><td>26</td><td>Layoff/Recall</td><td>27</td></tr>
+    <tr><td>27</td><td>Termination of Employment</td><td>28</td></tr>
+    <tr><td>28</td><td>Adjustment of Complaints</td><td>30</td></tr>
+    <tr><td>29</td><td>Harassment</td><td>34</td></tr>
+    <tr><td>30</td><td>Health and Safety</td><td>35</td></tr>
+    <tr><td></td><td>Appendix A</td><td>37</td></tr>
+    <tr><td></td><td>Appendix B</td><td>38</td></tr>
+    <tr><td></td><td>Index</td><td>39</td></tr>
+    <tr><td></td><td>Letters of Understanding #1</td><td>41</td></tr>
+    <tr><td></td><td>Letters of Understanding #2</td><td>42</td></tr>
+    <tr><td></td><td>Letters of Understanding #3</td><td>43</td></tr>
+    <tr><td></td><td>Letters of Understanding #4</td><td>44</td></tr>
+  </tbody>
+</table>
+<!-- Clean contract content - replace the sample content in your PWA with this -->
+
+<h2>1. Purpose</h2>
+<p>The Association and the Union agree that the purpose of this Agreement is to set forth terms and conditions of employment relating to rates of pay, hours of work and other working conditions affecting the employees covered by this Collective Agreement as well as providing a means of settling disputes and grievances regarding alleged violations of the terms and conditions of this Agreement.</p>
+
+<h2>2. Application</h2>
+
+<h3>2.1</h3>
+<p>This Agreement shall apply with respect to all of the Association's employees comprised within the bargaining unit prescribed by the Alberta Labour Relations Board Certificate No 99-2014, or the said Certificate as may be amended from time to time excepting managerial employees and those employed in a confidential capacity in respect to labour relations.</p>
+
+<h3>2.2</h3>
+<p>The Association recognizes the Union as the exclusive agency for all employees as defined in the Labour Relations Board Certificate as referred to in Clause 2.1.</p>
+
+<h3>2.3</h3>
+<p>The Alberta Teachers' Association (the Association) shall mean that body established by the <em>Teaching Profession Act</em> (RSA 2000 c T-2).</p>
+
+<h3>2.4 Discrimination</h3>
+
+<h4>2.4.1</h4>
+<p>The Association agrees that it will not take punitive action against any employees as a result of their membership in and legal activities of the Union.</p>
+
+<h2>3. Definitions</h2>
+
+<h3>3.1 Employee Categories</h3>
+
+<h4>3.1.1</h4>
+<p>An employee is a person included in the bargaining unit and paying Union dues.</p>
+<p>Employees shall be categorized as follows:</p>
+
+<p><strong>Persons in permanent positions:</strong> authorized by the Association and employed on a full- or part-time basis and who have successfully completed the probationary period.</p>
+
+<p><strong>Persons in temporary positions:</strong> employed on a full- or part-time basis to fill a permanent position for a definite length of time not in excess of eighteen months or to work on a project where there is no anticipated need for the employee's services beyond eighteen months. It is agreed that the employment of a person in a temporary position to fill a permanent position shall be restricted to reasons of illness, approved leaves of absence or for other reasons mutually agreed between the parties.</p>
+
+<p>The Association will notify the Union of the reason for the temporary position.</p>
+
+<h4>3.1.2</h4>
+<p>The Association shall notify the Union when casual staff are hired. Casual staff are defined as persons engaged by the Association to perform work required by it for time periods not to exceed 420 hours in a year (September 01 to August 31) who are exempted from the provisions of this Agreement. Such persons shall be paid at an hourly wage rate calculated (per Clause 12.4) from the starting rate of the wage category to which the staff member was hired, plus required vacation pay. Notwithstanding the above, if the need for a casual employee is in caretaking or cafeteria, the limit is 560 hours. With mutual agreement between the Union and the Association, causal hours can be extended to meet long term Association coverage needs.</p>
+
+<h4>3.1.3 Probationary Period</h4>
+<p>Probationary period is the first six (6) months of employment during which time an employee may be terminated by the Association. An employee's probation period may be extended by mutual agreement of the Employer and the Union.</p>
+
+<h3>3.2 Service</h3>
+<p>Service shall be defined as the length of continuous employment in a position within the scope of this Agreement commencing from the time the employee was hired. Service also accrues while on one of the following job protected leaves as mandated by Alberta Employment Standards:</p>
+
+<ul>
+<li>Maternity/Parental Leaves</li>
+<li>Reservist Leave</li>
+<li>Compassionate Care Leave</li>
+<li>Death or Disappearance of a Child Leave</li>
+<li>Critical Illness of a Child Leave</li>
+<li>Long-term Illness and Injury Leave</li>
+<li>COVID Leave</li>
+<li>Domestic Violence Leave</li>
+<li>Citizenship Ceremony Leave</li>
+<li>Personal and Family Responsibility Leave</li>
+</ul>
+
+<p>Service does not accrue for any period of leave in excess of ten (10) calendar days in any year (September 01 – August 31) during which salary is not paid, while in receipt of Extended Disability Benefits under the Alberta School Employee Benefit Plan greater than 16 weeks, periods of disciplinary suspension from duties without pay; and periods of layoff in excess of ninety (90) calendar days.</p>
+
+<p>Where a temporary employee changes to a permanent employee without a break in service, seniority will date from the original date of hiring as a temporary employee.</p>
+
+<h3>3.3</h3>
+<p>Wages and benefits established by this Agreement shall apply to all employees unless otherwise specified.</p>
+
+<h3>3.4 Video Surveillance</h3>
+<p>The Association uses cameras for the protection and safety of staff, general public and property. This does not include monitoring employee performance.</p>
+
+<h2>4. Union Dues</h2>
+
+<h3>4.1</h3>
+<p>All employees now members of the Union and all current and future employees eligible to become members of the Union, except as herein exempted, shall pay monthly to the Union monies equal to the established dues of the Union as a condition of continued employment. Such dues shall be deducted monthly by the Association from the employee's month-end pay and remitted to the Union Local 777 within fifteen (15) days following the deduction.</p>
+
+<h3>4.2</h3>
+<p>The Association agrees to provide the Union with a list of employees for whom Union dues are deducted and their classification monthly.</p>
+
+<h3>4.3</h3>
+<p>The Association agrees to provide the Union with a service list of its Union employees on March 01 and September 01 respectively indicating date of hire and length of service.</p>
+
+<h3>4.4</h3>
+<p>The Union will provide the Association with a list of its officers, representatives and stewards, and will provide a revised list in writing within one (1) week of any change(s).</p>
+
+<h2>5. Information for the Union</h2>
+
+<h3>5.1</h3>
+<p>The Employer will supply the Unit Chair or Chief Shop Steward and the Local Representative with the following information at the end of every month:</p>
+
+<ul>
+<li>Employees who have joined the bargaining unit during the month</li>
+<li>Name</li>
+<li>Address with postal code</li>
+<li>Telephone number</li>
+<li>Any changes to employee name, address and telephone number</li>
+</ul>
+
+<p>The information collected by the Local or National Representative shall be used in accordance with the Union's internal privacy policies. The Union will indemnify the Association against claims arising out of its compliance with Article 5.</p>
+
+<h2>6. Management Rights</h2>
+
+<h3>6.1</h3>
+<p>The Union agrees that it is the exclusive right of the Association to manage its business and direct its work force except to the extent to which these rights have been abrogated by the terms of this Agreement.</p>
+
+<h2>7. Union Activities</h2>
+
+<h3>7.1 Labour Management Committee</h3>
+<p>There shall be a Labour Management Committee consisting of up to four (4) representatives of the Association and up to four (4) representatives of the Union. This committee does not make or enforce policy; however, it is expected to provide the Association with constructive recommendations and suggestions as they relate to the employment relationship between the Association and the members of the bargaining unit. Either party may introduce health and safety items for discussion.</p>
+
+<h3>7.2 Representation</h3>
+
+<h4>7.2.1</h4>
+<p>The Association agrees that the Union may have the assistance of a representative of Unifor in any negotiations or grievances between the parties to this Agreement.</p>
+
+<h4>7.2.2</h4>
+<p>The Association agrees to recognize five (5) Stewards. The Union shall notify the Association in writing of the names of the Stewards. The Association further agrees that the Stewards may, with written permission (memorandum or e-mail) of their supervisor, be permitted to leave their regular duties for a reasonable length of time in order to investigate and settle a grievance. Every effort will be made to schedule said meetings at the end of the working day. The Association shall provide, at no cost to the Union, access to vacant meeting space on an emergent basis for Stewards to conduct business relating to the collective agreement. Where time permits, such space must be booked by the Steward using established procedures for reserving meeting rooms. Time spent on Union business during a member's normal hours of work shall be recorded on the time sheet.</p>
+
+<h4>7.2.3</h4>
+<p>The Association recognizes a Bargaining Committee of three (3) members of the Union, the names of which will be supplied to the Association prior to any negotiations commencing. The Association agrees to maintain wages and benefits for those days on which negotiating meetings are scheduled between the parties. Time spent on Union business during a member's normal hours of work shall be recorded on the time sheet.</p>
+
+<h4>7.2.4</h4>
+<p>The Association agrees to recognize a Grievance Committee of three (3) employees not including the grievor. The Union shall notify the Association in writing of the names of the Grievance Committee. Members of the Grievance Committee shall not conduct Union business during working hours except with written permission (memorandum or e-mail) of their supervisor. The Association shall maintain the wages and benefits of committee members during the time such members are discharging their responsibilities under the Grievance Procedure in meetings with the employer. Notwithstanding the foregoing, should a grievance proceed to arbitration, attendance of any Grievance Committee member at said arbitration shall be without pay. Paycheques for such members attending arbitrations will be maintained. The Union will be invoiced for payment of applicable wages and benefits. Time spent on Union business during a member's normal hours of work shall be recorded on the time sheet.</p>
+
+<h4>7.2.5 Discipline Meetings</h4>
+<p><strong>(a)</strong> An employee has the right to be accompanied by a representative of the Union to any meeting where the employee is to receive a written notice of discipline or discharge and shall be so advised prior to any such meeting.</p>
+
+<p><strong>(b)</strong> An employee may refuse the right recognized above by providing the Union and the Association with a written statement to that effect prior to the meeting.</p>
+
+<p><strong>(c)</strong> Nothing in these sections is meant to restrict any right of management recognized in other Articles of this Agreement.</p>
+
+<p><strong>(d)</strong> Time spent on Union business during a member's normal hours of work shall be recorded on the time sheet.</p>
+
+<h3>7.3 Leave of Absence For Union Business</h3>
+
+<h4>7.3.1</h4>
+<p>The Association will allow a maximum of forty (40) working days in a calendar year for Union members to attend to Union business other than that specified in Clause 7.2.3 and 7.2.4. Days not used of such leave may not be carried over to a subsequent year and only a maximum of three (3) members may request such leave at any one time, given that the leave will be:</p>
+
+<p><strong>(a)</strong> without pay for the allotted time, and</p>
+<p><strong>(b)</strong> if the request for it is made ten (10) working days in advance of leave.</p>
+
+<p>Requests for leave of absence for union business will be approved on shorter notice, provided the operational needs of the Association can be met.</p>
+
+<p>Although leave related to Clause 7.3.1 is without pay, paycheques for members on Union business will be maintained. The Union will provide Human Resources with written notice in advance of each leave. Time spent on Union business during a member's normal hours of work shall be recorded on the time sheet.</p>
+
+<p>The Association will itemize and invoice the Union monthly for payment of the wages and benefits applicable to each absence. The Union will remit payment within thirty (30) days.</p>
+
+<h3>7.4 Posting Union Information</h3>
+
+<h4>7.4.1</h4>
+<p>The Association will provide space for a Union bulletin board for the posting by the Union Executive of Union information regarding the following:</p>
+
+<ul>
+<li>Union General Meeting notices</li>
+<li>Upcoming Union events</li>
+<li>Health and safety</li>
+<li>Labour/Management agreements or information relevant thereto</li>
+<li>Other material authorized by the Union Executive before posting</li>
+</ul>
+
+<p>Notwithstanding the foregoing, the Association may remove any posting and bring the matter to the attention of the Union Executive.</p>
+
+<h3>7.5 General Meetings of Union Members</h3>
+<p>The Union will have the right to hold three (3) general meetings per year during office hours, provided that one (1) begins no earlier than 1530 and the remaining two (2) may begin earlier in the work day but must be limited to 45 minutes. All meeting times will be reported, in advance, to the Human Resources Director.</p>
+
+<h2>8. Term of Agreement</h2>
+
+<h3>8.1</h3>
+<p>This Agreement shall take effect on 2024 09 01 and shall expire 2026 08 31.</p>
+
+<h3>8.2</h3>
+<p>It is agreed that terms and conditions of this Collective Agreement will continue in effect until such time as a new Agreement is signed by both parties or until a strike or lockout as defined under the terms of the Labour Relations Code commences.</p>
+
+<h3>8.3</h3>
+<p>Should either party wish to negotiate and enter into a new Collective Agreement to replace this Agreement, they shall serve notice of their intention upon the other party not more than one hundred and fifty (150) days, nor less than sixty (60) days prior to the last day of operation of this Agreement as provided under Clause 8.1 above.</p>
+
+<h3>8.4</h3>
+<p>When notice has been given in accordance with Clause 8.3, the parties to the Agreement shall meet within thirty (30) calendar days for the purpose of exchanging and clarifying their respective proposals.</p>
+
+<h2>9. No Strike or Lockout</h2>
+
+<h3>9.1</h3>
+<p>The Association and the Union agree that during the currency of this Agreement, the Association shall not cause, direct or engage in any lockout and the Union shall not cause, direct or engage in any strike or slow down activity as defined by the Alberta Labour Relations Code.</p>
+
+<h2>10. Job Classification</h2>
+
+<h3>10.1</h3>
+<p>A job description within the scope of this Agreement shall be established for each position. Copies of job descriptions for employees covered hereunder are found on the ATA's staff site.</p>
+
+<h3>10.2</h3>
+<p>The Association shall have the authority to establish new positions and to set related wage rates. The Association shall notify the Union of the new positions and wage rates.</p>
+
+<h3>10.3</h3>
+<p>If a member wishes to appeal a classification/reclassification decision, they may do so by filing a request for classification/reclassification appeal no later than thirty (30) calendar days after receiving the written decision. The appeal will be sent to Korn Ferry who will provide a recommendation to the Executive Secretary regarding the classification of the position whose decision is final and binding.</p>
+
+<p>The Association will share the documents and recommendation pertaining to the appeal with the Union.</p>
+
+<h2>11. Promotion/Transfer Procedures</h2>
+
+<h3>11.1</h3>
+<p>The Association will determine recruiting methods when filling a new or vacant position. Notice of the position availability, together with its description and required qualifications, will be posted internally for a period of not less than five (5) working days and all permanent employees have the right to apply.</p>
+
+<h4>11.1.1</h4>
+<p>Unless the Association notifies the Union otherwise, the Association will post vacancies resulting from employee resignation(s) within two (2) weeks of the employee(s) departure.</p>
+
+<h4>11.1.2</h4>
+<p>Temporary positions of six months or less to replace members who are on leave need not be posted.</p>
+
+<h4>11.1.3</h4>
+<p>Internal applicants will be included in the interview process if they have the skills, ability and qualifications required for the position.</p>
+
+<h4>11.1.4</h4>
+<p>All applicants will receive acknowledgement of their application prior to interview dates and if interviewed, will be advised of the Association's decision without delay.</p>
+
+<h4>11.1.5</h4>
+<p>In considering applicants, the factors which shall be considered are:</p>
+<ol>
+<li>related ability</li>
+<li>qualifications</li>
+<li>length of service</li>
+</ol>
+<p>If factors i. and ii. are relatively equal, factor iii. will govern.</p>
+
+<h4>11.1.6</h4>
+<p>Members who are successful applicants will commence a thirty (30) working days trial period in the new position. During this trial period either the employee or employer may at their discretion with written explanation choose a return to the position held immediately prior to the move. Any employees who may be affected by such reversions will also revert to the positions they held prior to the move.</p>
+
+<h4>11.1.7</h4>
+<p>Unless the date of the appointment is specified on the job posting, the member shall be transferred to the new position within six (6) weeks of being notified by the Association of the selection. Should there be good and sufficient reason why the appointment to the new position cannot be made within the six (6) week period, the member shall be notified in writing as to the reasons therefore and be given a specific date prior to or at which the appointment shall be made. The member shall receive the new pay rate starting the seventh (7th) week or at the time of transfer, whichever is earlier.</p>
+
+<h4>11.1.8</h4>
+<p>When a professional staff position is created or falls vacant, members shall have the opportunity to apply for the position. Notwithstanding the above, the Association is not obligated to select a bargaining unit member for the position.</p>
+
+<h3>11.2 Wage Progression</h3>
+
+<h4>11.2.1</h4>
+<p>Pay grade means the salary determined by the step and category described in Appendix B.</p>
+
+<h4>11.2.2</h4>
+<p>An Employee's initial placement within the steps in a pay grid in Appendix B is determined upon appointment. Factors such as previous experience, scarcity or uniqueness of required skills, and exceptional ability may be recognized by placement above step one. When this occurs, the Union will be notified. An Employee shall advance at the rate of one step after successful completion of the probationary period specified in 3.1.3 and on each full year of service to a maximum salary of the category is reached.</p>
+
+<h4>11.2.3</h4>
+<p>Employees who request transfers to permanent positions having:</p>
+
+<p><strong>(a)</strong> the same pay category will retain their salary pay grade and step progression with time.</p>
+
+<p><strong>(b)</strong> a lower pay category will retain the salary paid at the pay grade from which they moved until such time as the salary in the lower pay grade exceeds the salary to which they were entitled prior to the transfer.</p>
+
+<p>Employees who move from:</p>
+
+<p><strong>(a)</strong> part-time to full-time employment do not retain the salary grade from the part-time position but do retain step position.</p>
+
+<p><strong>(b)</strong> full-time to part-time employment do not retain the salary grade from the full-time position but do retain step position.</p>
+
+<p>Members on layoff provisions who transfer to another position do not maintain the previous pay grade but are entitled to step progression with time.</p>
+
+<h4>11.2.4</h4>
+<p>In the event that the Association reclassifies a position or initiates a transfer of an employee to a position requiring the same number of work hours per week but for which a lower salary grade has been established, the rate of pay of that employee shall be maintained.</p>
+
+<h4>11.2.5</h4>
+<p>To be eligible for acting incumbency pay, an employee shall be required to perform the principal duties of the higher level position in addition to performing some of the employee's regular duties for a minimum period of eight (8) consecutive working days. On completion of the minimum eight (8) days qualifying period in an acting position, an employee shall be eligible for acting pay from the ninth (9th) day forward. The rate of pay shall be equivalent to that which the employee would be entitled to if promoted to that position.</p>
+
+<h4>11.2.6</h4>
+<p>An employee transferred or promoted to a position of a higher classification of the salary schedule shall retain the "step" on the schedule previously held.</p>
+
+<h4>11.2.7</h4>
+<p>No employee shall be required to take a lesser rate of pay when assigned at the Association's request to temporarily perform the duties of another employee covered under the terms of this Agreement.</p>
+
+<h2>12. Salary</h2>
+
+<h3>12.1</h3>
+<p>All salaries referred to herein are in respect to a twelve-month period, unless otherwise specifically stated.</p>
+
+<h3>12.2</h3>
+<p>The salary schedule for each type of job classification covered by this Agreement shall be as set forth in Appendix B.</p>
+
+<h3>12.3</h3>
+<p>A monthly allowance of $180, pro-rated to FTE, shall be paid to caretaking employees working the regularly scheduled shift 1600-2400. This allowance is not included in the calculation of any benefit plan or pension plan referred to in this Agreement.</p>
+
+<h3>12.4 Salary Conversions – Hourly Rates</h3>
+<p>The hourly rate of pay for full- and part-time employees defined in Clause 3.1.1 is 1/1820 of the annual salary. The hourly rate of pay for casual staff defined in Clause 3.1.2 is 1/2080 of the annual salary. This rate is used to determine rates for overtime or amounts to be deducted and to establish the first or final salary payment, in cases where employment commences or terminates between regular semi-monthly pay periods.</p>
+
+<h3>12.5</h3>
+<p>On-call pay will be compensated at $3.00 per hour for staff who are required to receive and respond to emergency work calls after hours. Phone consultations, when necessary, will be included in this rate of pay.</p>
+
+<p>When it is deemed necessary by the employer for an employee to physically attend the worksite to deal with emergency building issues outside of scheduled working hours, they shall be paid for all time worked at overtime rates or a minimum of two (2) hours at overtime rates, whichever is the greater. Such employee shall be reimbursed for a round trip between their place of employment and their home at the set ATA all staff rate per kilometer.</p>
+
+<p>It is expected that staff ensure their availability and fitness to return to work at all times while assigned on call duties.</p>
+
+<h2>13. Salary Payment</h2>
+
+<h3>13.1</h3>
+<p>Employees shall normally be paid on the 15th and last day of the month. When the 15th or last day of the month falls on a Saturday, Sunday, Monday or statutory holiday, payment is made on the preceding work day.</p>
+
+<h3>13.2</h3>
+<p>Exceptions to regular hours of work reported and approved by the 15th of the month will be included in the pay date on the last day of the month and exceptions to the regular hours of work reported and approved by the last day of the month will be included in the pay date on the following 15th of the month pay date.</p>
+
+<h2>14. Hours of Work</h2>
+
+<h3>14.1</h3>
+<p>The standard work week for full-time employees of the Association is 35 hours, normally divided into five seven-hour days, from Monday through Friday between the hours of 0800 and 1700.</p>
+
+<h3>14.2</h3>
+<p>Special hours exist for cafeteria staff.</p>
+
+<h4>14.2.1 Caretaking/Maintenance Employees</h4>
+<p>Regular hours of work shall be established for each position as follows:</p>
+<ul>
+<li>Monday to Friday day shift between 0600 and 1700</li>
+<li>Monday to Friday evening shift between 1200 and 2400</li>
+<li>Weekends and Holidays between 0600 and 1800</li>
+</ul>
+
+<p>To ensure coverage for a period up to a maximum of two (2) weeks, schedule changes may be made by the supervisor or the employee by giving one week's notice.</p>
+
+<p>The following positions will be maintained:</p>
+<p>A minimum of five (5) evening caretakers.</p>
+
+<h3>14.3 Variable Working Hours</h3>
+<p>Each employee shall select regular hours of work, subject to the following limitations:</p>
+<ul>
+<li>Monday through Friday: seven hours per day</li>
+<li>commencing not earlier than 0730, finishing not later than 1800</li>
+<li>lunch breaks will be not less than half an hour</li>
+<li>there is one fifteen minute coffee break in the morning and one fifteen minute coffee break in the afternoon</li>
+</ul>
+
+<p>These times must be agreed to by the supervisor so that the work area is covered at all times during regular office hours.</p>
+
+<p>A new selection may be made within the variable working hours at any time with one week's notice to the supervisor. Such a request shall only be denied based on a clear and demonstrable business need.</p>
+
+<h3>14.4 Flexibility</h3>
+<p>Within the variable working hours, flexibility is provided as follows:</p>
+
+<p>The variable working hours may be modified on an ad hoc basis at the initiative of the employee under the following conditions:</p>
+
+<ul>
+<li>prior notice to supervisor</li>
+<li>approval by the supervisor provided operational needs can be met</li>
+<li>such requests will not be unreasonably denied</li>
+</ul>
+
+<p>Time lost under the variable working hours provision shall be worked four (4) working days before or after the shortage is incurred on an hour for hour basis. If an employee is unable to make up the lost time, then it will be charged against any accumulated overtime, against holiday entitlement or docked.</p>
+
+<h2>15. Overtime</h2>
+
+<h3>15.1</h3>
+<p>Time worked in excess of 35 hours per week or seven (7) hours per day is overtime, provided it has been authorized by the program area supervisor in advance.</p>
+
+<h4>15.1.1</h4>
+<p>When an employee works in excess of seven (7) hours per day and/or in excess of 35 hours per week under the provisions of Clause 14.4, those excess hours are not overtime.</p>
+
+<h3>15.2</h3>
+<p>The minimum amount of daily overtime that can be claimed is 15 minutes; beyond this, overtime is reported to the nearest one-quarter hour.</p>
+
+<h3>15.3</h3>
+<p>Overtime is at the rate of time and one-half. Employees may select payment or time off.</p>
+
+<h3>15.4</h3>
+<p>Overtime on Sundays and statutory holidays is compensated at double time.</p>
+
+<h3>15.5</h3>
+<p>If time off is selected, it must be taken at a mutually agreeable time and authorized by the supervisor, and not later than the end of the six-month period following the month in which it was worked. Failure to mutually agree on compensating time off will result in an equivalent payout of the overtime worked.</p>
+
+<h2>16. Meal Allowance and Expenses</h2>
+
+<h3>16.1</h3>
+<p>Any employee working two (2) hours or more than their normal daily working hours will be supplied a meal to be eaten on paid time or a meal allowance can be claimed by the employee up to $20.00 with appropriate receipts if the Association has not supplied a meal. This Clause shall not apply to days an employee is regularly scheduled to work less than six (6) hours nor to those employees working in the cafeteria.</p>
+
+<h3>16.2</h3>
+<p>Authorized overtime in excess of three (3) hours worked on a Saturday, Sunday or statutory holiday will also qualify for this allowance.</p>
+
+<h3>16.3</h3>
+<p>Claims must be submitted within thirty (30) calendar days of the overtime being worked.</p>
+
+<h3>16.4</h3>
+<p>Each employee shall be reimbursed for out of pocket expenses incurred when on Association business of the Employer, as verified by expense vouchers signed by the appropriate budget controller.</p>
+
+<h2>17. General Holidays</h2>
+
+<h3>17.1</h3>
+<p>The Association recognizes the following general holidays which will be granted with pay. Association offices will be closed on the Saturday of any holiday which is a long weekend.</p>
+
+<ul>
+<li>New Year's Day</li>
+<li>Alberta Family Day</li>
+<li>Good Friday</li>
+<li>Easter Monday</li>
+<li>Victoria Day</li>
+<li>Canada Day</li>
+<li>Heritage Day</li>
+<li>Labour Day</li>
+<li>Truth and Reconciliation Day</li>
+<li>Thanksgiving Day</li>
+<li>Remembrance Day</li>
+<li>Christmas Day</li>
+<li>Boxing Day</li>
+</ul>
+
+<p>In the event that Canada Day falls on a Saturday or Sunday, the following Monday will be declared a holiday. Notwithstanding the above, should Remembrance Day or Truth and Reconciliation Day fall on a Saturday or Sunday, the following Monday will be a regular working day. Should Canada Day fall on a Tuesday, the office will also be closed June 30. Should Canada Day fall on a Thursday, the office will also be closed July 02.</p>
+
+<h3>17.2</h3>
+<p>The Association agrees to grant additional days off with pay for bargaining unit members in conjunction with the holidays listed in Clause 17.1 as they may from time to time be granted generally to all other employees of the Association.</p>
+
+<h3>17.3</h3>
+<p>A general holiday is earned only when an employee has worked or has been on approved absence on the last working day before and the first working day after the general holiday.</p>
+
+<h3>17.4</h3>
+<p>Employees required to work on a general holiday as part of their regular duties shall be paid at twice the regular rate of pay.</p>
+
+<h3>17.5</h3>
+<p>Full-time employees who miss a general holiday because it falls on their scheduled day off will be allowed a compensating day off. Compensating day off must be taken within six (6) months.</p>
+
+<h3>17.6 Part-time Employees</h3>
+
+<h4>17.6.1</h4>
+<p>Part-time employees shall be granted general holidays, with pay, which fall on their scheduled day of work.</p>
+
+<h4>17.6.2</h4>
+<p>Part-time employees shall be granted general holidays with pay, in conjunction with their vacation, equal to their full-time equivalency (or part-time assignment) multiplied by the number of general holidays minus those granted pursuant to Clause 17.6.1.</p>
+
+<h4>17.6.3</h4>
+<p>Effective 2017 09 01, part-time employees shall have all paid leave entitlements pro-rated based on the FTE.</p>
+
+<h2>18. Vacation</h2>
+
+<h3>18.1</h3>
+<p>Each employee shall be entitled to annual vacation according to the following schedule:</p>
+<ul>
+<li>during the first through fifth full years of service – 15 working days</li>
+<li>during the sixth through eleventh full years of service – 20 working days</li>
+<li>during the twelfth through twentieth full years of service – 25 working days</li>
+<li>during the twenty-first and subsequent full years of service – 30 working days</li>
+</ul>
+
+<h4>18.1.1</h4>
+<p>Vacation entitlement is calculated as of September 01 each year and is based on full years of service. For those employed after September 01, the vacation entitlement is prorated for the first year.</p>
+
+<h4>18.1.2</h4>
+<p>Any entitlement at August 31 which is unused at December 31 of that year shall be carried forward provided that only one week of each annual entitlement may be deferred to a maximum of three weeks. Payout for any remaining unused vacation will only occur if the Association fails to schedule that vacation.</p>
+
+<h3>18.2</h3>
+<p>Deferred vacation must be used within three (3) years of being deferred.</p>
+
+<h3>18.3</h3>
+<p>Vacation in excess of fifteen (15) consecutive days duration (excluding Saturdays, Sundays, statutory and declared holidays) will not be granted between September 01 and June 30. Exceptions to this rule require the approval of the executive secretary (or designee).</p>
+
+<h3>18.4</h3>
+<p>Employee preferences are considered as far as possible but the requirements of the Association are given priority. Effective 1992 09 01 no employee shall be compelled to take vacation or lose pay during periods of time that the Association closes its offices, unless laid off formally.</p>
+
+<h3>18.5</h3>
+<p>One long service "bonus holiday week" will be granted after ten full years of service and one after each five full additional years of service. This week is to be taken within two (2) years of becoming entitled to it. Service is determined by the conditions outlined in Clause 3.2.</p>
+
+<h3>18.6</h3>
+<p>In the event that an employee becomes seriously ill or is hospitalized while on approved vacation, additional vacation credit to the extent of the time of the illness will be granted, to be taken at a time approved by the employee's supervisor, provided that the illness was in excess of three (3) days not including Saturday or Sunday and the employee can establish by a doctor's certificate that the illness was of sufficient severity as to have disabled the employee from attending work had the employee not been on vacation.</p>
+
+<h3>18.7</h3>
+<p>In the event that a statutory or declared holiday falls within the annual vacation period of any employee, such period shall be extended by one (1) day for each of the holidays so affected.</p>
+
+<h3>18.8</h3>
+<p>Paid sick leave shall not be deemed to have broken the continuity of employment for purposes of establishing vacation entitlement.</p>
+
+<h2>19. Sick Leave</h2>
+
+<h3>19.1</h3>
+<p>Sick leave is calculated at the rate of one and two-thirds working days for each full month of employment. The entitlement for each calendar year is twenty (20) days calculated at one and two-thirds working days for each full month of employment and credited to the employee on September 01 of each year. Any unused portion at the end of the year is carried over until a maximum of one hundred and eighty (180) days is reached.</p>
+
+<h4>19.1.1</h4>
+<p>For employees joining or terminating employment during the year, sick leave either shall be calculated from the date of employment to August 31, or from September 01 to the date of termination.</p>
+
+<h4>19.1.2</h4>
+<p>Medical appointments in excess of seven (7) hours per year during regular working hours shall be deducted from sick leave entitlement on an hour-for-hour basis.</p>
+
+<h3>19.2</h3>
+<p>Employees who are absent from work because of sickness must notify their immediate supervisor. If unable to contact their supervisor, employees will utilize practices established by the supervisor within the program area.</p>
+
+<h3>19.3</h3>
+<p>When an absence exceeds five (5) work days due to illness or injury, the employee may be requested to submit a doctor's certificate to Human Resources confirming the total period of absence. After the five (5) work day absence, the employee may be required to provide a doctor's certificate upon request by the employer indicating their ability to return to work and any accommodations that may be needed.</p>
+
+<h4>19.3.1</h4>
+<p>Where the Association has reasonable concerns regarding the health and safety of an employee it may request an employee to undergo a medical examination by a medical practitioner named or approved by the Association.</p>
+
+<h4>19.3.2</h4>
+<p>After an employee's doctor's medical documentation has been reviewed and where there is a need for an employee to attend an Independent Medical Exam paid for by the employer, the Employer will select a specialist who possesses appropriate qualifications and experience relevant to the injury or disability being assessed and will advise the union, providing rationale.</p>
+
+<h3>19.4</h3>
+<p>An employee who is absent from work because of accident, medically substantiated illness or disability is entitled to receive full salary for the first ninety (90) calendar days of absence or to the limit of the accumulated sick leave entitlement, whichever is the shorter period of time.</p>
+
+<h3>19.5</h3>
+<p>Should the employee, at the conclusion of the first ninety (90) calendar days, become eligible for extended disability benefits under the Alberta School Employee Benefit Plan:</p>
+
+<p><strong>(a)</strong> the balance of unused sick leave will be held to the credit of the employee</p>
+
+<p><strong>(b)</strong> the employee shall have the Association's share of benefit premiums continued according to the following formula: one (1) month premium for each full year of service.</p>
+
+<h4>19.5.1</h4>
+<p>Where an employee is disabled and has exhausted sick leave entitlement prior to the end of the ninety (90) day waiting period for benefits under ASEBP EDB, the Association shall pay retroactively an amount equal to two-thirds of the employee's salary after acceptance for benefits under ASEBP EDB has been confirmed. In no event shall the employer pay salary beyond ninety (90) calendar days. Notwithstanding the above, an employee whose service is less than three (3) years will not be eligible for payment under this clause.</p>
+
+<h4>19.5.2</h4>
+<p>Where a member has been disqualified under ASEBP but is still unable to resume active duty, the member may be entitled to use the member's cumulative sick leave until it is exhausted.</p><h2>20. Maternity/Adoption and Parental Leave</h2>
+            
+            <h3>20.1</h3>
+            <p>Employees are entitled to maternity, adoption and parental leave.</p>
+            
+            <h3>20.2</h3>
+            <p>A Supplementary Benefits Plan (SUB plan) is provided to supplement the Employment Insurance benefits received by employees for temporary unemployment necessitated by maternity or adoption leave.</p>
+            
+            <h3>20.3</h3>
+            <p>All employees on maternity or adoption leave are covered by the SUB plan. In any week, the total amount of SUB, employment insurance gross benefits and any other earnings received by the employee will equal one hundred (100) percent of the employee's normal weekly earnings.</p>
+            
+            <h3>20.4</h3>
+            <p>The Association shall top up employment insurance benefit payments to provide benefits and one hundred (100) percent of full salary as per clause 20.3 for a member on maternity leave for a period of up to seventeen (17) weeks and up to twelve (12) weeks for adoption leave. Parental leave will be pursuant to Article 22, except that a member who is on parental leave shall have the Association's share of benefit premiums continued pursuant to the following formula: one (1) month's premium for each full year of service. The health spending account provided under Clause 24.2 will continue to apply throughout the top-up period of the leave.</p>
+            
+            <h3>20.5</h3>
+            <p>Maternity leave shall be granted under conditions as specified below:</p>
+            <p>(a) The maternity leave will begin at the discretion of the employee. The employee shall notify Human Resources of her leave requirements not less than six (6) weeks in advance of the first day of leave.</p>
+            <p>(b) Human Resources may request a statement from a physician indicating the approximate date of delivery.</p>
+            <p>(c) Maternity leave shall be without pay except as provided in Clause 20.4.</p>
+            <p>(d) The employee may terminate the leave at any time up to seventeen (17) weeks following the date of delivery. The employee will indicate the intention to access parental leave and the expected leave termination date at the commencement of the leave.</p>
+            <p>(e) In any event, the employee shall give Human Resources not less than four (4) weeks' notice, in writing, of the intended return date.</p>
+            
+            <h3>20.6</h3>
+            <p>Before commencing maternity leave, each employee shall be eligible for either option i) or ii) as follows:</p>
+            <p>i) If the employee commences her absence due to medical reasons prior to ten (10) weeks before the estimated date of delivery and continues until the date of delivery, the employee shall access sick leave until such time as she is eligible for extended disability benefit.</p>
+            <p>ii) If the absence begins within the ten (10) week period before the estimated date of delivery, or on the date of delivery, the employee shall choose either (a) or (b) below. Such choice shall apply until the employee returns to work after the delivery.</p>
+            <p>(a) The employee may access the supplementary employment benefits (SUB) plan.</p>
+            <p>(b) The employee may access sick leave entitlement with pay for the period of sickness or disability to the date of delivery or to the maximum of the employee's credited sick leave entitlement.</p>
+            
+            <h3>20.7</h3>
+            <p>Employees shall be granted adoption leave under conditions as specified below:</p>
+            <p>(a) The adoption leave will begin at the time of adoption. The employee shall notify Human Resources of the leave requirements.</p>
+            <p>(b) The Association will pay salary during the one (1)-week waiting period and provide up to eleven (11) weeks of SUB benefits.</p>
+            <p>(c) The employee may terminate the leave at any time up to twelve (12) weeks' following the date of adoption. The employee will indicate the intention to access parental leave and the expected leave termination date at the commencement of the leave.</p>
+            <p>(d) In any event, the employee shall give Human Resources not less than four (4) weeks' notice, in writing, of the intended return date.</p>
+            
+            <h3>20.8</h3>
+            <p>The Association's Supplementary Benefits Plan (SUB) regulations include the following:</p>
+            <p>(a) Employees must apply for and must be in receipt of employment insurance benefits before they will receive SUB payments. Exception to the foregoing is the one (1)-week Employment Insurance waiting period.</p>
+            <p>(b) Employees do not have a right to SUB payments except for supplementation of EI benefits for the unemployment period as specified in the legislation.</p>
+            <p>(c) Employees must provide Human Resources with proof that they are getting EI benefits before receiving payments under the plan or that they are in the one (1)-week waiting period. Employees are also required to submit records of any other earnings received.</p>
+            <p>(d) Payments in respect of guaranteed annual remuneration or in respect of deferred remuneration or severance pay benefits are not reduced or increased by payments received under the SUB plan.</p>
+            <p>(e) The Association will incorporate legislated changes to the SUB plan.</p>
+            
+            <h3>20.9</h3>
+            <p>Parental leave shall be granted in accordance with the Alberta Employment Standards Code.</p>
+            
+            <h2>21. Leave With Pay</h2>
+            
+            <h3>21.1</h3>
+            <p>An employee will be allowed a maximum of three (3) days per year in the case of a critically ill family member defined as an urgent and unforeseen requirement to attend to the care or health of a family member who has a medical condition with a significant risk of death within 26 weeks. Requests for such leave be made to the supervisor. Evidence of the critical illness will be required. Family member shall mean spouse, child, parent, grandparent, sibling, grandchild, mother and father-in-law, common-law spouse and guardian and those who act as parents or guardians. Additional leave may be granted, when at the discretion of the executive secretary or designee, circumstances warrant.</p>
+            
+            <h3>21.2</h3>
+            <p>Bereavement leave of up to five (5) days will be granted in the event of the death of spouse, common-law spouse, child, sibling, parent, parent-in-law, grandchild, sister/brother-in-law, grandparent, grandparent-in-law and guardian and those who act as parents or guardians. Up to an additional two (2) days may be granted for round trip travel of 900 or more kilometres. An additional leave of one (1) day will be granted for travel overseas.</p>
+            
+            <h3>21.3</h3>
+            <p>Up to three (3) days per year for care of an immediate family member defined as a spouse, common-law partner, child, parent, sibling, parent of spouse, members of the Employee's household or legal guardian.</p>
+            
+            <h3>21.4</h3>
+            <p>One (1) day in any twelve-month period of employment (September 01 - August 31) for a change of domicile will be granted.</p>
+            
+            <h3>21.5</h3>
+            <p>Leave will be granted four (4) days per year for personal business, on approval of the supervisor. Time may be taken in one-half day increments. Part-time employees are eligible for this leave on a pro-rated basis. Members are not expected to disclose the purpose of the personal leave.</p>
+            
+            <h3>21.6</h3>
+            <p>Leave will be granted for no more than two (2) days per year (September 01 - August 31) for absence caused by impassable public road conditions or suspension of public transportation, upon evidence, satisfactory to the Association being provided to Human Resources.</p>
+            
+            <h3>21.7</h3>
+            <p>Leave will be granted for jury or witness duty and the employee will, upon receipt of the fee or stipend, reimburse the Association for any witness fee or jury stipend set by the court or other body.</p>
+            
+            <h3>21.8</h3>
+            <p>Up to three (3) days leave will be granted for employees to attend at the birth of their child or to assist in bringing home their newborn or adopted children.</p>
+            
+            <h3>21.9</h3>
+            <p>Up to 14 hours of paid leave per year for the care of a parent, parent-in-law, grandparent, or grandparent-in-law. Part-time employees are eligible for this leave on a pro-rated basis.</p>
+            
+            <h3>21.10 Medical Appointments</h3>
+            
+            <h3>21.10.1</h3>
+            <p>An employee is entitled to seven (7) hours of paid time for medical appointments each year. Any additional time required shall be deducted from sick leave entitlement. Proof that appointments cannot be arranged outside of business hours may be required.</p>
+            
+            <h3>21.11 Domestic Violence</h3>
+            
+            <h3>21.11.1</h3>
+            <p>In addition to the Alberta Employment Standards, the Employer will pay wages, salary and benefits three (3) days per operational year of the ten (10) allowed days per operational year during an eligible Employee's Domestic Violence Leave. Requests for such leave shall be made to the supervisor. Evidence from a recognized professional i.e. doctor, lawyer, counsellor, shelter worker supporting the request will be required.</p>
+            
+            <h2>22. Leave Without Pay</h2>
+            
+            <h3>22.1</h3>
+            <p>The Association may grant leaves without pay for any reasons acceptable to it. Applications must be submitted to the supervisor. If approval is granted, the Association will continue to pay its share of benefit premiums on behalf of the employee for the first ten (10) calendar days of such leave. The employee may arrange to maintain group coverage for the remainder of the leave by bearing the total cost of contributions to benefit plans identified in Article 24 of this Agreement. The health spending account of Clause 24.2 will not apply to employees on unpaid leave of absence. The ten (10)-day premium provision of this clause shall not apply to employees availing themselves of the provisions of Clause 20.7 or 20.4.</p>
+            
+            <h2>23. Education Assistance Leave Plan</h2>
+            
+            <h3>23.1 Short Course/Seminar</h3>
+            <p>(a) Employees wishing to attend a short course or seminar related to Association work must submit an application on a form available on the staff site through the immediate supervisor to the coordinator of the program area. Final authorization must come from the executive secretary (or designee).</p>
+            <p>(b) After completion of the course or seminar the member will be requested to submit a report to Human Resources.</p>
+            
+            <h3>23.2 Sabbatical Leave</h3>
+            <p>Sabbatical leave may be granted by the coordinator following approval and recommendation of the supervisor upon the application of an Employee for reasons of study or travel or for other reasons that, in the opinion of the coordinator, will advance the interests of the Employer.</p>
+            <p>a) If leave is granted, the Employee shall be entitled to a maximum of two months' leave for each year of service as an Employee except that no single leave shall exceed 12 consecutive months.</p>
+            <p>b) Applications for sabbatical leave shall be submitted to the coordinator at least six months before the intended commencement of the leave, with a decision to be rendered within three months.</p>
+            <p>c) Employees who are granted sabbatical leave shall give an undertaking in writing to return to their duties following the expiration of said leave for a period at least twice the length of the leave. The penalty for earlier resignation shall be repayment of the amount of salary assistance pro rated to the return service not rendered.</p>
+            <p>d) An Employee who is granted sabbatical leave shall receive pay at the rate of 75 per cent of gross salary and continuity of benefits, except accrual of vacation and sick leave entitlement, in respect of the period of leave.</p>
+            <p>e) A period of sabbatical leave shall be considered as a period of service for the purposes of this agreement, except in the consideration of eligibility for subsequent sabbatical leaves.</p>
+            <p>f) Upon termination of sabbatical leave, the Employee shall be returned to a position on the salary grid no less favourable than that held at the commencement of the leave.</p>
+            
+            <h2>24. Benefits</h2>
+            
+            <h3>24.1 Group Insurance</h3>
+            
+            <h3>24.1.1</h3>
+            <p>It shall be a condition of employment for all employees in permanent full-time or part-time positions and all employees in temporary positions for a period of six (6) or more months to participate in the listed plans unless the employee can demonstrate similar coverage with another plan. In such cases, a signed statement to that effect is required.</p>
+            <p>The Association shall provide the following benefit plans: ASEBP Extended Disability Benefits, Plan D. ASEBP Life Insurance and AD&D, Plan 2. ASEBP Extended Health Care, Plan 1. ASEBP Dental Care, Plan 3. ASEBP Vision and Hearing Aids, Plan 3.</p>
+            <p>The Association shall pay: Full Cost of ASEBP Extended Disability Benefits, Plan D. Full Cost of ASEBP Life Insurance and AD&D, Plan 2. Full Cost for single or family coverage under ASEBP Extended Health Care, Plan 1. Full Cost for single or family coverage under ASEBP Dental Care, Plan 3. Full Cost for single or family coverage under ASEBP Vision and Hearing Aids, Plan 3.</p>
+            
+            <h3>24.1.2</h3>
+            <p>The continuity of benefit coverage is further defined in Clauses 20.7 and 22.1.</p>
+            
+            <h3>24.1.3</h3>
+            <p>Effective for employees retiring after 2012 08 31, when a member retires at age 55 or later and i. is eligible to receive Association pension benefits and ASEBP coverage, and ii. opts to receive coverage the Association will pay 100 percent of the premiums of ASEBP MyRetiree Enhanced Plan until the age 65:</p>
+            <p>- Extended Health and Vision Care</p>
+            <p>- Dental Care</p>
+            <p>- Life and Accidental Death and Dismemberment (AD&D) Insurance</p>
+            <p>Employees who retired prior to 2012 08 31 and who have enrolled in the ASEBP MyRetiree Plan will continue to receive a benefit in the same amount as at the time of their retirement provided they pay the member's share of premiums in advance, consistent with the Association's stated requirements. At no time will the Association be responsible for paying the member's share of benefits in advance and failure of the member to pay their share of premiums consistent with the Association's requirements will result in loss of benefits.</p>
+            
+            <h3>24.2 Health Spending Account</h3>
+            
+            <h3>24.2.1</h3>
+            <p>The Association shall allocate $2,050 annually for each employee, already participating in the core benefit plan, to the ASEBP Health & Wellness Spending Accounts. One twelfth of the annual amount shall be credited to the employee's account each month of employment.</p>
+            
+            <h3>24.2.2</h3>
+            <p>The plan shall be administered by ASEBP.</p>
+            
+            <h2>25. Pension Plan</h2>
+            
+            <h3>25.1</h3>
+            <p>The Association shall maintain a Pension Plan.</p>
+            
+            <h3>25.2</h3>
+            <p>All permanent employees covered by this Agreement, unless otherwise eligible to participate in the Alberta Teachers' Retirement Fund, are required to participate in the plan as a condition of employment.</p>
+            
+            <h3>25.3</h3>
+            <p>The Association agrees to maintain the benefits of the pension plan for all members of the Union covered thereby in a manner that is uniformly and equally applied to other members of the plan.</p>
+            
+            <h2>26. Layoff/Recall</h2>
+            
+            <h3>26.1</h3>
+            <p>In the event of a layoff, the employee with the least seniority within a department and classification shall be released from the department first. An employee released from a department due to a reduction in the workforce may bump within the same position title and classification provided the individual has sufficient capability to fulfil the requirements of the job satisfactorily, such as the necessary minimum qualifications and skills to perform the remaining work available. In any event, temporary and probationary employees shall be laid off first.</p>
+            
+            <h3>26.1.2</h3>
+            <p>In the event of a potential layoff of a permanent employee as defined under Clause 3.1, the Association will meet with the Union at least six (6) weeks prior to said layoff to discuss possible alternatives.</p>
+            
+            <h3>26.2</h3>
+            <p>The Association will provide notice of layoff of at least four (4) weeks prior to the effective date of layoff or four (4) weeks' salary in lieu of notice.</p>
+            <p>Employees in temporary and probationary positions shall be provided notice of layoff at least seven (7) calendar days prior to the effective date of layoff.</p>
+            
+            <h3>26.2.1</h3>
+            <p>The "Record of Employment" requested for purposes of applying for Employment Insurance shall be processed within five (5) working days of the employee's last day worked.</p>
+            
+            <h3>26.2.2</h3>
+            <p>The Association shall provide to the Union an updated list of employees who are subject to recall by classification indicating their last day worked and order of layoff.</p>
+            
+            <h3>26.3</h3>
+            <p>Employees on layoff will retain recall rights for a period of six (6) months.</p>
+            
+            <h3>26.3.1</h3>
+            <p>Employees shall be recalled in the reverse order in which they were laid off. Recall rights shall apply to the employee's category or below provided they meet the established qualifications.</p>
+            
+            <h3>26.3.2</h3>
+            <p>In requesting a laid off employee to return to work, the Association shall notify such employee by double registered mail or personal contact at the employee's last address known to the Association.</p>
+            
+            <h3>26.3.3</h3>
+            <p>A recalled employee who fails to respond to the recall notice within ten (10) days of its issuance shall be considered to have resigned and shall forfeit all recall rights.</p>
+            
+            <h3>26.3.4</h3>
+            <p>An employee who is laid off shall be eligible for severance pay provided that:</p>
+            <p>(a) the employee has one (1) or more years of continuous service;</p>
+            <p>(b) the Association determines there is little likelihood that the employee will be recalled or the employee has been laid off for more than six (6) months;</p>
+            <p>(c) the employee elects to end their employment.</p>
+            <p>The Association will provide severance pay of two (2) weeks pay plus one (1) week pay at the employee's regular rate of pay per completed year of service, up to a maximum of twenty-six (26) weeks. A week is 35 hours.</p>
+            
+            <h2>27. Termination of Employment</h2>
+            
+            <h3>27.1 Death</h3>
+            
+            <h3>27.1.1</h3>
+            <p>In the event of the death of an employee, the named beneficiary(s), or if none, the employee's estate shall be paid the salary and accrued holiday pay to the date of death. In addition, payment of up to a maximum of five months' current salary shall be paid to the employee's named beneficiary(s), or if none, the employee's estate, calculated at the rate of one (1) month's salary for each three (3) years of service or major fraction thereof.</p>
+            
+            <h3>27.2 Retirement</h3>
+            
+            <h3>27.2.1</h3>
+            <p>An employee who is retiring must notify Human Resources in writing at least twenty (20) working days in advance of the contemplated retirement date. An employee will forfeit any entitlement in Clause 27.2.2 if written notice is not provided to Human Resources within said time-frame.</p>
+            
+            <h3>27.2.2</h3>
+            <p>Upon retirement, an employee shall be paid salary and accrued holiday pay to date of retirement. In addition, payment of up to five (5) months' current salary shall be paid, calculated at the rate of one month's salary for each four completed years of full-time service. The Association shall deduct from the above amount any outstanding debt. A member may choose one of the following options for payment of the above noted retirement monies; (a) single and full payment at retirement, (b) a single payment, payable at the request of the employee, within the twelve (12) month period following retirement.</p>
+            
+            <h3>27.3 Early Retirement Incentive Plan</h3>
+            
+            <h3>27.3.1</h3>
+            <p>The Association shall offer an Early Retirement Incentive Plan to any employee who at the effective date of retirement:</p>
+            <p>- will be 55 years of age or older, and</p>
+            <p>- will have ten (10) or more years of service with the Association.</p>
+            
+            <h3>27.3.2</h3>
+            <p>An employee who applies in writing shall receive an incentive calculated as follows, where N is [(maximum minus minimum of employee's salary grade) X 2.5 X 0.030 X years of service rounded up for partial years]:</p>
+            <p>Age 55 - 70% of N | Age 60 - 100% of N</p>
+            <p>Age 56 - 70% of N | Age 61 - 100% of N</p>
+            <p>Age 57 - 80% of N | Age 62 - 80% of N</p>
+            <p>Age 58 - 80% of N | Age 63 - 60% of N</p>
+            <p>Age 59 - 100% of N | Age 64 - 40% of N</p>
+            
+            <h3>27.3.3</h3>
+            <p>The employee may select one of the following schemes for payment of the incentive:</p>
+            <p>(a) equal annual payments in the amount of the incentive divided by five (5) or the numbers of years between the employee's age and age 65, whichever is lesser. The employee shall advise the Association of the date of the first payment.</p>
+            <p>(b) a single payment equivalent to the incentive, payable at the request of the employee within the twelve (12)-month period following retirement.</p>
+            
+            <h3>27.3.4</h3>
+            <p>Any balance of the incentive owing at time of death shall be paid to the employee's named beneficiary under the pension plan to which the employee last contributed. For the purpose of this Clause, pension plan shall mean either the Office Staff Pension Plan or the Alberta Teachers' Retirement Fund.</p>
+            
+            <h3>27.4 Termination with Notice</h3>
+            
+            <h3>27.4.1</h3>
+            <p>An employee who is resigning must notify Human Resources in writing at least ten (10) working days in advance of the contemplated termination date.</p>
+            
+            <h3>27.4.2</h3>
+            <p>When employment of a probationary employee is terminated by the Association, the employee shall be given not less than five (5) days' in lieu of notice.</p>
+            
+            <h3>27.5 Severance Pay</h3>
+            
+            <h3>27.5.1</h3>
+            <p>An employee who is terminated due to the dissolution of the Association, in whole or in part, and who is not employed by the successor organization, if any, shall be paid a severance allowance of one (1) month's salary for each full year of service to a maximum of twelve (12) months' salary.</p>
+            
+            <h3>27.6 Dismissal and/or Discipline for Cause</h3>
+            
+            <h3>27.6.1</h3>
+            <p>The Association reserves the right to dismiss and/or discipline an employee for cause, without the giving of notice. In cases of dismissal, the payment to the employee of benefits accrued to the time of dismissal, other than those required by law, shall be at the discretion of the Association subject to grievance and arbitration procedure.</p>
+            
+            <h2>28. Adjustment of Complaints</h2>
+            
+            <h3>28.1 Purpose of Grievance Procedure</h3>
+            <p>It is the intention of the parties that this procedure shall provide a just and peaceful method of adjusting grievances and the parties agree to act in good faith in settlement of grievances in accordance with the provisions of this Article.</p>
+            
+            <h3>28.2 Definition of a Grievance</h3>
+            <p>Any complaints, disagreement, or difference of opinion between the Association and the Union or the employees covered by this Agreement which concerns the application or interpretation of the terms and provisions of this Agreement, shall be considered a grievance.</p>
+            
+            <h3>28.3 Types of Grievances</h3>
+            <p>Any employee, or the Union may present a grievance. Grievances involving harassment, suspensions, or terminations, group grievances, policy grievances and/or grievances filed on behalf of the Union shall be submitted at Step 3 of the grievance procedure. Grievances will be filed within twenty (20) calendar days from the date of the incident.</p>
+            
+            <h3>28.4 Grievance Steps</h3>
+            <p>Step 1: The employee concerned, with or without a Union representative present, shall first discuss the complaint with the employee's immediate supervisor. There will be no grievance until the supervisor has an opportunity to discuss the matter with the employee. The supervisor shall respond to the employee's complaint within five (5) working days of receiving said complaint.</p>
+            
+            <p>Step 2: If no settlement is reached, the employee and/or the Shop Steward shall submit a formal grievance in writing to the immediate supervisor, setting forth the following:</p>
+            <p>(a) the nature of the complaint, date of occurrence and circumstances out of which it arose;</p>
+            <p>(b) the section(s) of the Collective Agreement alleged to have been violated or infringed upon;</p>
+            <p>(c) the remedy or correction requested.</p>
+            <p>The supervisor shall respond in writing within five (5) working days. If a satisfactory settlement cannot be reached, proceed to step 3.</p>
+            
+            <p>Step 3: Within five (5) working days of receiving the decision under Step 2, the grievance shall be referred to the Unit President or designate who, in writing, shall submit it to Human Resources. Human Resources and the Representative(s) of the Union shall attempt to resolve the grievance. The Association shall provide a written reply within ten (10) working days of the written grievance. If a satisfactory settlement cannot be reached within ten (10) working days the Union may then refer the grievance to a single arbitrator as established in section 28.2 of this Article.</p>
+            
+            <h3>28.5 Grievance Format and Time Frames</h3>
+            <p>Where a grievance has not progressed within the prescribed step or time lines by the Union, it shall be considered dropped. In the event the Association fails to adhere to the time limits, the grievance shall be awarded to the Union and the remedy shall be imposed. The time limitations prescribed in this article may be extended, but only by mutual consent of the parties in writing. Such consent shall not be unreasonably withheld. An Arbitrator shall have the authority to determine if time limits should be waived or extended. Issues of timeliness shall be presented to the Arbitrator as a preliminary matter.</p>
+            
+            <h3>28.6 Suspension or Dismissal Grievances</h3>
+            <p>A grievance concerning the suspension or dismissal of an employee may be initiated at Step 2 of the grievance procedure and must be submitted within fifteen (15) calendar days of the date the employee is suspended or dismissed.</p>
+            
+            <h3>28.7 Pay For Grievance Meetings</h3>
+            <p>Any meetings necessary to comply with the formal grievance provisions of this Article will be held during normal working hours at no loss of pay to the employees concerned.</p>
+            
+            <h3>28.8 Monetary Adjustments</h3>
+            <p>All monetary grievances that are mutually agreed upon shall be paid on the following pay period or as soon as reasonable, but in any case, not more than two pay periods from the date of resolution.</p>
+            
+            <h3>28.9 Introducing Grievances at Higher Levels</h3>
+            <p>By mutual agreement in writing between the Union and the Association, a grievance may be introduced at a higher level than that prescribed in the grievance procedure if the nature of the grievance warrants such special consideration.</p>
+            
+            <h3>28.10 Optional Grievance Mediation</h3>
+            <p>(a) After receipt of the decision of the Association, under Step Three (3), within 10 working days either party may request that a Mediator be appointed to meet with the parties, investigate and define the issues in dispute and facilitate a resolution.</p>
+            <p>(b) So long as both parties agree to mediation, the Mediator shall be appointed by mutual agreement between the parties.</p>
+            <p>(c) The purpose of the Mediator's involvement in the grievance process is to assist the parties in reaching a resolution of the dispute, and anything said, proposed, generated or prepared for the purpose of trying to achieve a settlement is to be considered privileged. During the proceedings, the parties shall disclose all materials and information relevant to the issue(s) in dispute.</p>
+            <p>(d) The expenses of the Mediator shall be equally borne by both parties.</p>
+            <p>(e) The grievance may be resolved by mutual agreement between the parties.</p>
+            <p>Within 10 working days of first meeting the parties, having considered the issue(s) in dispute and the terms of the collective agreement, the Mediator shall issue a report including non-binding recommendations.</p>
+            
+            <h3>28.11</h3>
+            <p>By mutual agreement between the Union and the Association, any of the dates contained in this clause may be extended but, in the absence of mutual agreement, failure by the grieving party to comply with any of the time restrictions will mean that the grievance is lost.</p>
+            
+            <h3>28.12 Arbitration</h3>
+            
+            <h3>28.12.1 Referral to Arbitration</h3>
+            <p>Failing a satisfactory settlement of a grievance at Step 2 of the grievance procedure, the Union may request that the matter be referred to arbitration. Such notification must be made in writing, within forty-five (45) calendar days of receiving the response at Step 2. Time limits may be extended by mutual agreement as per Article 28.05.</p>
+            
+            <h3>28.12.2 Arbitrator Governed by Agreement</h3>
+            <p>The Arbitrator shall receive and consider such material evidence and conditions as the parties may offer. In reaching its decision, the Board of Arbitration shall be governed by the provisions of this Agreement. The Board of Arbitration shall not be vested with the powers to change, modify or alter any of the terms of this Agreement.</p>
+            
+            <h3>28.12.3 Binding Decision</h3>
+            <p>The findings and decision of the Board of Arbitration on all arbitral questions shall be binding and enforceable on all parties.</p>
+            
+            <h3>28.12.4 Arbitration Expenses</h3>
+            <p>The expense of the Arbitrator shall be borne equally by the Association and the Union.</p>
+	    
+	    <h2>29. Harassment</h2>
+            <p>The Association and the Union recognize the right of employees to work in a harassment-free environment, and to be treated with respect in the workplace. The Association and the Union agree that all employees deserve a workplace that is productive and promotes both the dignity and the self-esteem of all employees.</p>
+            <p>Acts of harassment, bullying or discrimination of any form, whether intended or not, will not be tolerated.</p>
+            
+            <h2>30. Health and Safety</h2>
+            
+            <h3>30.1</h3>
+            <p>The Association and the Union recognize the importance of health, safety and environmental performance. The Association will abide by current Occupational Health and Safety legislation and will commit to collaborate, share resources and seek effective approaches that advance health and safety programming across the Association. This shall include joint communication or occasional event attendance to show support for activities and education designed to prevent, reduce or address safety incidences or potential risks resulting from work-related activities. The Union recognizes its responsibility to encourage its membership to participate in and promote health, safety and environment programs.</p>
+            
+            <h2>Agreement Execution</h2>
+            <p>IN WITNESS WHEREOF the Association has hereunto affixed its corporate seal, duly authenticated by the signatures of its proper officers thereunto authorized, and the Union has caused these presents to be executed, all as of the day and year first above written.</p>
+            
+            <p style="text-align: center; margin-top: 2rem;">The Alberta Teachers' Association</p>
+            <p style="text-align: center; margin-top: 2rem;">Unifor, Local 777</p>
+            <p style="text-align: center; margin-top: 2rem;">Dated at Edmonton, Alberta this 03 day of [date] 2025</p>
+            
+            <h2>APPENDIX A</h2>
+            <p style="text-align: center;">(Effective 2024 09 01)</p>
+            
+            <h3>CATEGORY A</h3>
+            <p>[No positions listed]</p>
+            
+            <h3>CATEGORY B</h3>
+            <p>Caretaker</p>
+            <p>Food Services Aide II</p>
+            <p>Secretary/Receptionist</p>
+            <p>Library Clerk</p>
+            
+            <h3>CATEGORY C</h3>
+            <p>Accounting Technician/Secretary</p>
+            <p>Accounting Technician II</p>
+            <p>Caretaker (Class 4/5)</p>
+            <p>Facilities Support Assistant/Receptionist</p>
+            <p>Secretary/Receptionist (Bilingual)</p>
+            <p>Records Technician</p>
+            <p>Reviewer</p>
+            
+            <h3>CATEGORY D</h3>
+            <p>Accounting Technician III</p>
+            <p>Archives Technician</p>
+            <p>Baker</p>
+            <p>Caretaker, Lead Hand</p>
+            <p>Cook</p>
+            <p>Digital and Print Project Administrator</p>
+            <p>Evaluator I</p>
+            <p>Library Technician II (Bilingual)</p>
+            <p>Maintenance Technician</p>
+            <p>Printing/Distribution Assistant</p>
+            <p>Printing Technician</p>
+            <p>Program Assistant</p>
+            
+            <h3>CATEGORY E</h3>
+            <p>Building Operations Assistant</p>
+            <p>Evaluator II</p>
+            <p>Graphics Assistant</p>
+            <p>Program Assistant (Bilingual)</p>
+            
+            <h3>CATEGORY F</h3>
+            <p>Editor</p>
+            <p>Evaluator III</p>
+            <p>Graphics and UX Publisher</p>
+            <p>Payroll Administrator</p>
+            <p>Printing and Distribution Lead Hand</p>
+            
+            <h3>CATEGORY G</h3>
+            <p>Tradesperson</p>
+	    <h2>SALARY GRID--APPENDIX B</h2>
+
+<h3>Support Staff Grid effective September 1, 2024 (3% Increase)</h3>
+
+<table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+  <thead>
+    <tr>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Cat/Step</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">One</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Two</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Three</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Four</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Five</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Increment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">A</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$45,190</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$47,819</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$50,447</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$53,077</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$55,704</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$2,629</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">B</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$49,950</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$52,962</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$55,973</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$58,986</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$61,998</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$3,012</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">C</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$52,851</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$56,064</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$59,275</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$62,488</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$65,699</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$3,213</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">D</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$55,811</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$59,231</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$62,653</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$66,072</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$69,494</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$3,420</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">E</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$61,764</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$65,654</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$69,549</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$73,439</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$77,332</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$3,890</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">F</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$67,793</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$72,067</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$76,341</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$80,613</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$84,887</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$4,274</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">G</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$83,031</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$87,434</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">--</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">--</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">--</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$4,403</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Support Staff Grid effective September 1, 2025 (3% Increase)</h3>
+
+<table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+  <thead>
+    <tr>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Cat/Step</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">One</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Two</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Three</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Four</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Five</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Increment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">A</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$46,546</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$49,254</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$51,960</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$54,669</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$57,375</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$2,708</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">B</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$51,449</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$54,551</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$57,652</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$60,756</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$63,858</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$3,102</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">C</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$54,437</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$57,746</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$61,053</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$64,363</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$67,670</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$3,309</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">D</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$57,485</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$61,008</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$64,533</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$68,054</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$71,579</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$3,523</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">E</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$63,617</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$67,624</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$71,635</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$75,642</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$79,652</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$4,007</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">F</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$69,827</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$74,229</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$78,631</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$83,031</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$87,434</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$4,402</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">G</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$85,521</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$90,057</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">--</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">--</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">--</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$4,536</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>INDEX</h2>
+
+<h3>A</h3>
+<p>Adjustment of Complaints - 30</p>
+<p>Adoption Leave - 18</p>
+<p>APPENDIX A - 37</p>
+	    <p>APPENDIX B              38</p>
+	
+	<p>Application - 1</p>
+<p>Arbitration - 34</p>
+<p>Arbitration Expenses - 34</p>
+<p>Arbitrator Governed by Agreement - 34</p>
+
+<h3>B</h3>
+<p>Bargaining Committee - 5</p>
+<p>Benefits - 25</p>
+<p>Bereavement Leave - 21</p>
+<p>Binding Decision - 34</p>
+<p>Bonus Vacation - 16</p>
+
+<h3>C</h3>
+<p>Casual Staff - 2</p>
+
+<h3>D</h3>
+<p>Death - 28</p>
+<p>Definition of a Grievance - 31</p>
+<p>Definitions - 1</p>
+<p>Discipline Meetings - 6</p>
+<p>Discrimination - 1</p>
+<p>Dismissal and/or Discipline for Cause - 30</p>
+<p>Domestic Violence - 23</p>
+
+<h3>E</h3>
+<p>Early Retirement Incentive Plan - 29</p>
+<p>Education Assistance Leave Plan - 24</p>
+<p>Employee Categories - 1</p>
+<p>Exhausted all Sick Leave - 18</p>
+<p>Extended Disability Benefits - 18</p>
+
+<h3>F</h3>
+<p>Family Accident/Illness/Medical Needs - 21</p>
+<p>Flexibility - 14</p>
+
+<h3>G</h3>
+<p>General Holidays - 15, 41</p>
+<p>General Meetings of Support Staff - 7</p>
+<p>General Meetings of Union Members - 7</p>
+<p>Grievance Committee - 5</p>
+<p>Grievance Format and Time Frames - 32</p>
+<p>Grievance Steps - 31</p>
+<p>Group Insurance - 25</p>
+
+<h3>H</h3>
+<p>Harassment - 34</p>
+<p>Heath and Safety - 35</p>
+<p>Health Spending Account - 26</p>
+<p>Hours of Work - 13</p>
+
+<h3>I</h3>
+<p>Ill on Vacation - 16</p>
+<p>Impassable Roads - 21</p>
+<p>Incumbency Pay - 10</p>
+<p>Information for the Union - 4</p>
+<p>Introducing Grievances at Higher Levels - 33</p>
+
+<h3>J</h3>
+<p>Job Classification - 8, 38</p>
+<p>Jury Duty - 21</p>
+
+<h3>L</h3>
+<p>Labour Management Committee - 5</p>
+<p>Layoff/Recall - 27</p>
+<p>Leave of Absence For Union Business - 6</p>
+<p>Leave With Pay - 21</p>
+<p>Leave Without Pay - 24</p>
+
+<h3>M</h3>
+<p>Management Rights - 4</p>
+<p>Maternity/Adoption and Parental Leave - 19</p>
+<p>Meal Allowance and Expenses - 15</p>
+<p>Medical Appointments - 23</p>
+<p>Monetary Adjustments - 32</p>
+<p>Moving Day - 21</p>
+
+<h3>N</h3>
+<p>No Strike or Lockout - 8</p>
+
+<h3>O</h3>
+<p>Optional Grievance Mediation - 33</p>
+<p>Overtime - 14</p>
+
+<h3>P</h3>
+<p>Parental Care - 22</p>
+<p>Parental Leave - 18</p>
+<p>Part-time Employees - 16</p>
+<p>Pay For Grievance Meetings - 32</p>
+<p>Pension Plan - 27</p>
+<p>Personal Business Days - 21</p>
+<p>Position Categories-Appendix A - 37</p>
+<p>Posting Union Information - 7</p>
+<p>Probationary Period - 2</p>
+<p>Promotion/Transfer Procedures - 9</p>
+<p>Purpose - 1</p>
+<p>Purpose of Grievance Procedure - 30</p>
+
+<h3>R</h3>
+<p>Recall from Layoff - 26</p>
+<p>Referral to Arbitration - 34</p>
+<p>Representation - 5</p>
+<p>Retirement - 29</p>
+<p>Retirement Benefits - 24, 39</p>
+<p>Reversion - 9</p>
+
+<h3>S</h3>
+<p>Sabbatical Leave - 24</p>
+<p>Salary - 11</p>
+<p>Salary Conversions -- Hourly Rates - 12</p>
+<p>SALARY GRID--APPENDIX B - 38</p>
+<p>Salary Payment - 12</p>
+<p>Service - 3</p>
+<p>Severance Pay - 30</p>
+<p>Short Course/Seminar - 24</p>
+<p>Sick Leave - 18</p>
+<p>Strike or Lockout - 8</p>
+<p>SUB plan - 18</p>
+<p>Suspension or Dismissal Grievances - 32</p>
+
+<h3>T</h3>
+<p>Term of Agreement - 7</p>
+<p>Termination of Employment - 28</p>
+<p>Termination with Notice - 30</p>
+<p>Time Shortage (Flexibility) - 13</p>
+<p>Transfer Procedures - 8</p>
+<p>Types of Grievances - 31</p>
+
+<h3>U</h3>
+<p>Union Activities - 5</p>
+<p>Union Dues - 4</p>
+<p>Union Stewards - 5</p>
+
+<h3>V</h3>
+<p>Vacation - 16</p>
+<p>Variable Working Hours - 13</p>
+<p>Video Surveillance - 3</p>
+
+<h3>W</h3>
+<p>Wage Progression - 10</p>
+
+<h2>Letter of Understanding #1</h2>
+
+<h3>RE: Transition to the new job classification system</h3>
+
+<p>The Association and the union agreed as per the letter of understanding signed 2019 03 01, that if through the transition to the new classification system positions were reclassified to a lower pay grade, those individuals currently employed in those positions would be red circled.</p>
+
+<p>The Association and the union met on 2020 03 05 to review the outcome of the new job classification system. The parties agreed that the individuals, who at that time, were employed in positions that were reclassified to a lower classification would have their positions grandfathered rather than red circled. Individuals employed in grandfathered positions would continue to be eligible to receive in-range salary adjustments and future negotiated salary increases. The new classification for a grandfathered position would become effective when the individual vacates their position.</p>
+
+<h2>Letter of Understanding #2</h2>
+
+<h3>RE: On Call Implementation</h3>
+
+<p>In the development of the on call policy Letter of Understanding, the Association and the Union will take into account the following factors for staff who agree to work on call:</p>
+
+<ol>
+<li>equitable assignment of on call shifts;</li>
+<li>sick call in procedure when on call;</li>
+<li>ability to trade on call shifts between staff;</li>
+<li>circumstances and acceptable response time when a physical call back to the building is required versus when issues can be handled via phone calls;</li>
+<li>expectations regarding fitness for work and maintaining acceptable levels of technical competency and education;</li>
+<li>treatment of staff if they wish to step down out of the role.</li>
+</ol>
+
+<h2>Letter of Understanding #3</h2>
+
+<h3>RE: Pension Plan</h3>
+
+<p>As a result of the Association's decision to transfer the Office Staff Pension Plan to the Local Authorities Pension Plan, the parties agree to amend article 27.3.4 to "For the purposes of this Clause, pension plan shall mean either the Local Authorities Pension Plan or the Alberta Teachers' Retirement Fund." The Association will ensure that all employee entitlements in the Office Staff Pension Plan as of 2024 12 31, are maintained for the transfer to the Local Authorities Pension Plan and that no further contribution by employees will be required to complete the transfer of their accrued benefits as of 2024 12 31.</p>
+
+<h2>Letter of Understanding #4</h2>
+
+<h3>RE: Creation of New "G" Salary Category for Trades Positions</h3>
+
+<p>As a result of the Association's need to recruit and maintain qualified and ticketed Tradespeople to perform essential in building work and maintain effective ATA operations, it is understood that previous pay grids and compensation models in this Agreement are currently insufficient to replace essential trades staff such as plumbers and electricians.</p>
+
+<p>Therefore, the Association has developed and approved a new two step Trades salary grid for implementation as follows:</p>
+
+<h3>Support Staff Grid effective September 1, 2024 (3% Increase)</h3>
+
+<table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+  <thead>
+    <tr>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Cat/Step</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">One</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Two</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Increment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">G</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$83,031</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$87,434</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$4,403</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Support Staff Grid effective September 1, 2025 (3% Increase)</h3>
+
+<table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+  <thead>
+    <tr>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Cat/Step</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">One</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Two</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Increment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">G</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$85,521</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$90,057</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">$4,536</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>All newly hired trades staff after the implementation date will be hired at step 1 on the "G" category until the completion of a probation period at which time the new hire will proceed to step 2 as per Article 11.2.2 "Wage Progression".</p>
+
+<p>Any negotiated increases for the entire bargaining unit which come into effect in September annually will be applied on top of this new base salary.</p>
+
+<p>This new G category is intended for ticked trades positions only. Other Support Staff position classifications are ineligible to access this category.</p>
+
+<p>All other current CBA Articles remain unchanged.</p>
+        </div>
+        
+        <div class="no-results" id="noResults">
+            No results found. Try different search terms.
+        </div>
+    </div>
+    
+    <button class="jump-to-result" id="jumpButton" onclick="jumpToNextResult()">
+        Next Result ↓
+    </button>
+
+    <script>
+        let currentResults = [];
+        let currentResultIndex = 0;
+        let originalContent = '';
+
+        // Store original content on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            originalContent = document.getElementById('documentContent').innerHTML;
+            
+            // Enable search on Enter key
+            document.getElementById('searchInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchDocument();
+                }
+            });
+            
+            // Register service worker if supported
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js')
+                    .then(function(registration) {
+                        console.log('Service Worker registered successfully');
+                    })
+                    .catch(function(error) {
+                        console.log('Service Worker registration failed');
+                    });
+            }
+        });
+
+        function searchDocument() {
+            const searchTerm = document.getElementById('searchInput').value.trim();
+            const documentContent = document.getElementById('documentContent');
+            const searchStats = document.getElementById('searchStats');
+            const noResults = document.getElementById('noResults');
+            const jumpButton = document.getElementById('jumpButton');
+            
+            if (!searchTerm) {
+                clearSearch();
+                return;
+            }
+            
+            // Reset to original content
+            documentContent.innerHTML = originalContent;
+            
+            // Create case-insensitive regex
+            const regex = new RegExp(`(${escapeRegex(searchTerm)})`, 'gi');
+            
+            // Find and highlight matches
+            const walker = document.createTreeWalker(
+                documentContent,
+                NodeFilter.SHOW_TEXT,
+                null,
+                false
+            );
+            
+            const textNodes = [];
+            let node;
+            while (node = walker.nextNode()) {
+                if (node.textContent.match(regex)) {
+                    textNodes.push(node);
+                }
+            }
+            
+            currentResults = [];
+            
+            // Highlight matches
+            textNodes.forEach((textNode, index) => {
+                const highlightedText = textNode.textContent.replace(regex, '<span class="highlight" data-result="' + index + '">$1</span>');
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = highlightedText;
+                
+                while (tempDiv.firstChild) {
+                    textNode.parentNode.insertBefore(tempDiv.firstChild, textNode);
+                }
+                textNode.remove();
+            });
+            
+            // Get all highlighted elements
+            currentResults = document.querySelectorAll('.highlight');
+            currentResultIndex = 0;
+            
+            // Update UI
+            if (currentResults.length > 0) {
+                searchStats.textContent = `Found ${currentResults.length} result(s)`;
+                noResults.style.display = 'none';
+                documentContent.style.display = 'block';
+                jumpButton.style.display = currentResults.length > 1 ? 'block' : 'none';
+                
+                // Scroll to first result
+                currentResults[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                currentResults[0].style.backgroundColor = '#ff9800';
+            } else {
+                searchStats.textContent = 'No results found';
+                noResults.style.display = 'block';
+                jumpButton.style.display = 'none';
+            }
+        }
+        
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('documentContent').innerHTML = originalContent;
+            document.getElementById('searchStats').textContent = '';
+            document.getElementById('noResults').style.display = 'none';
+            document.getElementById('documentContent').style.display = 'block';
+            document.getElementById('jumpButton').style.display = 'none';
+            currentResults = [];
+            currentResultIndex = 0;
+        }
+        
+        function jumpToNextResult() {
+            if (currentResults.length === 0) return;
+            
+            // Reset previous highlight
+            currentResults[currentResultIndex].style.backgroundColor = '#ffeb3b';
+            
+            // Move to next result
+            currentResultIndex = (currentResultIndex + 1) % currentResults.length;
+            
+            // Highlight current result
+            currentResults[currentResultIndex].style.backgroundColor = '#ff9800';
+            
+            // Scroll to result
+            currentResults[currentResultIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        
+        function escapeRegex(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        // Handle install prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Show install button or banner
+            console.log('PWA install prompt available');
+        });
+    </script>
+</body>
+</html>
